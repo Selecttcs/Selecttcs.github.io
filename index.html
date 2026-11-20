@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diego Cerda — Analista Programador</title>
+<meta name="description" content="Portafolio de Diego Cerda, Analista Programador especializado en Oracle APEX y PL/SQL, con experiencia en liderazgo técnico, Git y despliegues.">
+<meta name="theme-color" content="#0b1020">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============ TOKENS ============ */
+  :root {
+    --bg: #f6f7fb;
+    --bg-2: #eceff6;
+    --surface: #ffffff;
+    --surface-2: #f1f3f8;
+    --text: #0f1629;
+    --muted: #556178;
+    --border: #dfe3ec;
+    --accent: #e0492f;
+    --accent-2: #f59e0b;
+    --accent-3: #6366f1;
+    --accent-soft: rgba(224, 73, 47, .10);
+    --grad: linear-gradient(120deg, #e0492f 0%, #f59e0b 50%, #e0492f 100%);
+    --grad-cool: linear-gradient(135deg, #6366f1, #06b6d4);
+    --code-bg: #0b1020;
+    --code-text: #d6deeb;
+    --grid-line: rgba(15, 22, 41, .05);
+    --glow-a: rgba(224, 73, 47, .18);
+    --glow-b: rgba(99, 102, 241, .16);
+    --shadow: 0 1px 2px rgba(16,24,40,.04), 0 12px 32px rgba(16,24,40,.08);
+    --shadow-lg: 0 24px 60px rgba(16,24,40,.14);
+    --radius: 16px;
+    --max: 1120px;
+    --gutter: clamp(16px, 4vw, 28px);
+    --section-y: clamp(64px, 10vw, 112px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b1020; --bg-2: #0f1528; --surface: #121a2e; --surface-2: #19223a; --text: #e8edf7;
+      --muted: #97a3bb; --border: #222d47; --accent: #ff5f45; --accent-2: #fbbf24; --accent-3: #818cf8;
+      --accent-soft: rgba(255,95,69,.12); --grid-line: rgba(255,255,255,.045);
+      --glow-a: rgba(255,95,69,.22); --glow-b: rgba(129,140,248,.20);
+      --grad: linear-gradient(120deg, #ff5f45 0%, #fbbf24 50%, #ff5f45 100%);
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.35); --shadow-lg: 0 24px 60px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b1020; --bg-2: #0f1528; --surface: #121a2e; --surface-2: #19223a; --text: #e8edf7;
+    --muted: #97a3bb; --border: #222d47; --accent: #ff5f45; --accent-2: #fbbf24; --accent-3: #818cf8;
+    --accent-soft: rgba(255,95,69,.12); --grid-line: rgba(255,255,255,.045);
+    --glow-a: rgba(255,95,69,.22); --glow-b: rgba(129,140,248,.20);
+    --grad: linear-gradient(120deg, #ff5f45 0%, #fbbf24 50%, #ff5f45 100%);
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.35); --shadow-lg: 0 24px 60px rgba(0,0,0,.5);
+  }
+
+  /* ============ BASE ============ */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img, svg { max-width: 100%; }
+  a { color: inherit; }
+  .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+  .grad-text { background: var(--grad); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 6s linear infinite; }
+  @keyframes shine { to { background-position: 200% center; } }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+
+  /* scroll progress */
+  .progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--grad); z-index: 100; }
+
+  /* ============ NAV ============ */
+  header.nav {
+    position: sticky; top: 0; z-index: 60;
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px);
+    border-bottom: 1px solid transparent; transition: border-color .3s;
+  }
+  header.nav.scrolled { border-bottom-color: var(--border); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
+  .brand { font-weight: 800; letter-spacing: -.02em; text-decoration: none; display: flex; align-items: center; gap: 10px; font-size: 17px; white-space: nowrap; }
+  .logo {
+    width: 36px; height: 36px; border-radius: 10px; background: var(--grad); background-size: 200% auto; color: #fff;
+    display: grid; place-items: center; font-size: 14px; font-weight: 900; box-shadow: 0 6px 18px var(--glow-a);
+  }
+  .nav-links { display: flex; gap: 4px; align-items: center; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 500; padding: 8px 12px; border-radius: 8px; transition: color .2s, background .2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--surface-2); }
+  .nav-actions { display: flex; gap: 8px; align-items: center; }
+  .icon-btn {
+    background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    width: 40px; height: 40px; border-radius: 10px; cursor: pointer; display: grid; place-items: center; flex-shrink: 0;
+  }
+  .icon-btn:hover { border-color: var(--accent); }
+  .menu-btn { display: none; }
+  .sun { display: none; }
+  :root[data-theme="dark"] .sun { display: block; } :root[data-theme="dark"] .moon { display: none; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .sun { display: block; } :root:not([data-theme="light"]) .moon { display: none; } }
+
+  @media (max-width: 880px) {
+    .menu-btn { display: grid; }
+    .nav-links {
+      position: fixed; top: 68px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 2px;
+      padding: 12px var(--gutter) 20px; background: var(--bg); border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-lg); transform: translateY(-8px); opacity: 0; visibility: hidden;
+      transition: opacity .2s, transform .2s, visibility .2s;
+    }
+    .nav-links.open { transform: none; opacity: 1; visibility: visible; }
+    .nav-links a { font-size: 16px; padding: 14px 12px; }
+  }
+
+  /* ============ HERO ============ */
+  .hero { position: relative; padding: clamp(48px, 9vw, 104px) 0 clamp(48px, 8vw, 88px); overflow: hidden; isolation: isolate; }
+  .hero::before {
+    content: ""; position: absolute; inset: 0; z-index: -2;
+    background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 40%, transparent 100%);
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 40%, transparent 100%);
+  }
+  .blob { position: absolute; border-radius: 50%; filter: blur(70px); z-index: -1; pointer-events: none; }
+  .blob.a { width: 420px; height: 420px; background: var(--glow-a); top: -120px; right: -80px; animation: float 14s ease-in-out infinite; }
+  .blob.b { width: 360px; height: 360px; background: var(--glow-b); bottom: -140px; left: -100px; animation: float 18s ease-in-out infinite reverse; }
+  @keyframes float { 50% { transform: translate(30px, 40px) scale(1.08); } }
+
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(32px, 5vw, 56px); align-items: center; }
+  @media (max-width: 960px) { .hero-grid { grid-template-columns: minmax(0, 1fr); } }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600;
+    color: var(--text); background: var(--surface); border: 1px solid var(--border); padding: 6px 14px 6px 10px; border-radius: 999px; box-shadow: var(--shadow);
+  }
+  .pulse { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 0 rgba(34,197,94,.6); animation: pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
+  h1 { font-size: clamp(42px, 8.5vw, 76px); line-height: 1; letter-spacing: -.045em; margin: 22px 0 16px; font-weight: 900; }
+  .role { font-size: clamp(17px, 2.6vw, 22px); font-weight: 600; margin: 0 0 18px; color: var(--muted); min-height: 1.6em; }
+  .role .typed { color: var(--text); }
+  .caret { display: inline-block; width: 2px; height: 1.05em; background: var(--accent); vertical-align: -3px; margin-left: 2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .lead { color: var(--muted); font-size: clamp(16px, 2vw, 18px); max-width: 580px; margin: 0 0 30px; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 22px; border-radius: 12px;
+    font-weight: 600; font-size: 15px; text-decoration: none; border: 1px solid transparent; transition: transform .2s, box-shadow .2s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--grad); background-size: 200% auto; color: #fff; box-shadow: 0 10px 28px var(--glow-a); }
+  .btn-primary:hover { background-position: right center; box-shadow: 0 14px 34px var(--glow-a); }
+  .btn-ghost { border-color: var(--border); background: var(--surface); }
+  .btn-ghost:hover { border-color: var(--accent); }
+  @media (max-width: 440px) { .cta .btn { flex: 1 1 100%; } }
+
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 30px; color: var(--muted); font-size: 14px; }
+  .hero-meta span { display: inline-flex; align-items: center; gap: 7px; }
+  .hero-meta svg { color: var(--accent); }
+
+  /* code card */
+  .code-wrap { position: relative; min-width: 0; }
+  .code-wrap::before {
+    content: ""; position: absolute; inset: -1px; border-radius: calc(var(--radius) + 1px); padding: 1px;
+    background: linear-gradient(140deg, var(--accent), transparent 40%, transparent 60%, var(--accent-3));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude;
+    pointer-events: none; z-index: 1;
+  }
+  .code-card {
+    position: relative; background: var(--code-bg); color: var(--code-text); border-radius: var(--radius);
+    font-family: "JetBrains Mono", ui-monospace, monospace; font-size: clamp(11.5px, 1.5vw, 13px); line-height: 1.75;
+    box-shadow: var(--shadow-lg); overflow: hidden;
+    transform: perspective(1200px) rotateY(-6deg) rotateX(3deg); transition: transform .5s ease;
+  }
+  .code-wrap:hover .code-card { transform: none; }
+  @media (max-width: 960px) { .code-card { transform: none; } }
+  .code-head { display: flex; gap: 7px; padding: 13px 16px; border-bottom: 1px solid rgba(255,255,255,.07); align-items: center; background: rgba(255,255,255,.02); }
+  .code-head i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+  .code-head i:nth-child(1) { background: #ff5f57; } .code-head i:nth-child(2) { background: #febc2e; } .code-head i:nth-child(3) { background: #28c840; }
+  .code-head em { margin-left: 10px; font-style: normal; color: #7f8ba0; font-size: 12px; }
+  .code-card pre { margin: 0; padding: 18px 20px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .kw { color: #c792ea; } .fn { color: #82aaff; } .str { color: #c3e88d; } .cm { color: #637085; font-style: italic; }
+  .floating-badge {
+    position: absolute; z-index: 2; background: var(--surface); color: var(--text); border: 1px solid var(--border);
+    border-radius: 12px; padding: 10px 14px; box-shadow: var(--shadow-lg); font-size: 13px; font-weight: 600;
+    display: flex; align-items: center; gap: 8px; animation: bob 5s ease-in-out infinite;
+  }
+  .floating-badge.one { bottom: -30px; left: -18px; }
+  .floating-badge.two { top: -16px; right: -12px; animation-delay: -2.5s; }
+  .floating-badge .ic { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; color: #fff; }
+  @keyframes bob { 50% { transform: translateY(-8px); } }
+  @media (max-width: 600px) { .floating-badge { display: none; } }
+
+  /* marquee */
+  .marquee { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); overflow: hidden; padding: 18px 0; }
+  .marquee-track { display: flex; gap: 48px; width: max-content; animation: scroll 38s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  .marquee-track span { font-family: "JetBrains Mono", monospace; font-weight: 500; color: var(--muted); font-size: 15px; white-space: nowrap; display: inline-flex; align-items: center; gap: 48px; }
+  .marquee-track span::after { content: "◆"; color: var(--accent); font-size: 10px; }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+
+  /* ============ SECTIONS ============ */
+  section { padding: var(--section-y) 0; position: relative; }
+  .section-head { margin-bottom: clamp(28px, 5vw, 48px); max-width: 720px; }
+  .kicker { font-family: "JetBrains Mono", monospace; font-size: 13px; font-weight: 600; color: var(--accent); display: inline-flex; align-items: center; gap: 10px; }
+  .kicker::before { content: ""; width: 28px; height: 2px; background: var(--grad); border-radius: 2px; }
+  h2 { font-size: clamp(30px, 5vw, 46px); letter-spacing: -.035em; margin: 10px 0 0; line-height: 1.08; font-weight: 800; }
+  .section-sub { color: var(--muted); margin: 14px 0 0; font-size: clamp(15px, 1.8vw, 17px); }
+  .alt { background: var(--bg-2); }
+
+  .card {
+    position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+  .icon-tile {
+    width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; flex-shrink: 0;
+    background: var(--accent-soft); color: var(--accent);
+  }
+
+  /* about */
+  .about-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 56px); align-items: start; }
+  @media (max-width: 880px) { .about-grid { grid-template-columns: minmax(0, 1fr); } }
+  .about-grid p { color: var(--muted); margin: 0 0 16px; font-size: clamp(15px, 1.8vw, 17px); }
+  .about-grid p strong { color: var(--text); }
+  .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .stat { padding: clamp(18px, 3vw, 24px); }
+  .stat b { display: block; font-size: clamp(30px, 5vw, 40px); font-weight: 900; letter-spacing: -.03em; line-height: 1.1; }
+  .stat small { display: block; font-size: 13px; font-weight: 700; color: var(--text); margin-top: 4px; }
+  .stat span { font-size: 13.5px; color: var(--muted); line-height: 1.5; display: block; margin-top: 4px; }
+
+  /* strengths */
+  .strengths { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  @media (max-width: 960px) { .strengths { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 620px) { .strengths { grid-template-columns: minmax(0, 1fr); } }
+  .strength { padding: clamp(20px, 3vw, 28px); display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+  .strength::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--grad);
+    transform: scaleX(0); transform-origin: left; transition: transform .4s ease;
+  }
+  .strength:hover::after { transform: scaleX(1); }
+  .strength h3 { margin: 4px 0 0; font-size: 18px; letter-spacing: -.015em; }
+  .strength p { margin: 0; color: var(--muted); font-size: 15px; }
+  .strength.featured { background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 10%, var(--surface)), var(--surface) 60%); }
+
+  /* timeline */
+  .timeline { position: relative; padding-left: clamp(26px, 4vw, 36px); }
+  .timeline::before { content: ""; position: absolute; left: 7px; top: 10px; bottom: 10px; width: 2px; background: linear-gradient(var(--accent), var(--accent-3), transparent); border-radius: 2px; }
+  .job { position: relative; margin-bottom: 48px; }
+  .job:last-child { margin-bottom: 0; }
+  .job::before {
+    content: ""; position: absolute; left: calc(-1 * clamp(26px, 4vw, 36px)); top: 6px; width: 16px; height: 16px; border-radius: 50%;
+    background: var(--bg-2); border: 3px solid var(--accent); box-shadow: 0 0 0 5px var(--accent-soft);
+  }
+  .job-top { display: flex; justify-content: space-between; gap: 6px 16px; flex-wrap: wrap; align-items: baseline; }
+  .job h3 { margin: 0; font-size: clamp(19px, 2.6vw, 23px); letter-spacing: -.02em; }
+  .job .org { color: var(--muted); font-weight: 500; font-size: 15px; }
+  .date-pill { font-family: "JetBrains Mono", monospace; font-size: 12.5px; font-weight: 500; color: var(--accent); background: var(--accent-soft); padding: 4px 12px; border-radius: 999px; white-space: nowrap; }
+  .engagements { display: grid; gap: 14px; margin-top: 18px; }
+  .engagement { padding: clamp(16px, 3vw, 22px); }
+  .engagement h4 { margin: 0 0 10px; font-size: 16px; display: flex; gap: 8px 10px; align-items: center; flex-wrap: wrap; }
+  .tag { font-size: 11.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .engagement ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 15px; }
+  .engagement li { margin: 6px 0; }
+  .engagement li::marker { color: var(--accent); }
+  .engagement strong { color: var(--text); font-weight: 600; }
+
+  /* projects */
+  .projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 760px) { .projects { grid-template-columns: minmax(0, 1fr); } }
+  .project { padding: clamp(22px, 3.5vw, 30px); display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+  .project::before {
+    content: ""; position: absolute; width: 220px; height: 220px; border-radius: 50%; top: -110px; right: -110px;
+    background: radial-gradient(circle, var(--glow-a), transparent 70%); opacity: .7; transition: transform .5s; pointer-events: none;
+  }
+  .project:nth-child(2n)::before { background: radial-gradient(circle, var(--glow-b), transparent 70%); }
+  .project:hover::before { transform: scale(1.4); }
+  .project-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .project-num { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--muted); }
+  .project h3 { margin: 4px 0 0; font-size: clamp(18px, 2.4vw, 21px); letter-spacing: -.02em; line-height: 1.3; }
+  .project p { margin: 0; color: var(--muted); font-size: 15px; }
+  .sector { font-size: 11.5px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .project .chips { margin-top: auto; padding-top: 8px; }
+  .chip { font-family: "JetBrains Mono", monospace; font-size: 12px; padding: 5px 10px; border-radius: 7px; background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+
+  /* skills */
+  .skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  @media (max-width: 760px) { .skills { grid-template-columns: minmax(0, 1fr); } }
+  .skill-group { padding: clamp(20px, 3vw, 28px); }
+  .skill-group h3 { margin: 0 0 16px; font-size: 17px; display: flex; align-items: center; gap: 12px; }
+  .skill-group .icon-tile { width: 38px; height: 38px; border-radius: 10px; }
+  .skill-group.primary { border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+  .skill-group.primary .chip:nth-child(-n+2) { background: var(--accent); color: #fff; border-color: transparent; font-weight: 600; }
+  .fav { font-size: 11px; font-weight: 700; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 999px; margin-left: auto; text-transform: uppercase; letter-spacing: .05em; }
+
+  /* education */
+  .edu { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  @media (max-width: 900px) { .edu { grid-template-columns: minmax(0, 1fr); } }
+  .edu-item { padding: clamp(20px, 3vw, 26px); display: flex; flex-direction: column; gap: 6px; }
+  .edu-item h3 { margin: 6px 0 0; font-size: 17px; letter-spacing: -.01em; line-height: 1.35; }
+  .edu-item p { margin: 0; color: var(--muted); font-size: 14.5px; }
+  .badge { align-self: flex-start; margin-top: 8px; font-size: 12px; font-weight: 700; color: #fff; background: var(--grad); background-size: 200% auto; padding: 4px 12px; border-radius: 999px; }
+
+  /* contact */
+  .contact-box {
+    position: relative; overflow: hidden; isolation: isolate;
+    background: #0b1020; color: #fff; border-radius: 24px; padding: clamp(28px, 6vw, 64px);
+    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 48px); align-items: center;
+    border: 1px solid rgba(255,255,255,.08);
+  }
+  .contact-box::before { content: ""; position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(255,95,69,.35), transparent 65%); top: -250px; left: -150px; z-index: -1; }
+  .contact-box::after { content: ""; position: absolute; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(129,140,248,.28), transparent 65%); bottom: -220px; right: -120px; z-index: -1; }
+  @media (max-width: 820px) { .contact-box { grid-template-columns: minmax(0, 1fr); } }
+  .contact-box h2 { color: #fff; }
+  .contact-box p { color: rgba(255,255,255,.75); margin: 14px 0 0; font-size: clamp(15px, 1.8vw, 17px); }
+  .contact-box .kicker { color: #ffb4a6; }
+  .contact-links { display: grid; gap: 10px; min-width: 0; }
+  .contact-links a {
+    display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 14px;
+    background: rgba(255,255,255,.06); text-decoration: none; color: #fff; font-weight: 500; font-size: 15px;
+    border: 1px solid rgba(255,255,255,.10); transition: background .2s, transform .2s, border-color .2s; min-width: 0;
+  }
+  .contact-links a:hover { background: rgba(255,255,255,.12); transform: translateX(4px); border-color: rgba(255,255,255,.25); }
+  .contact-links .ic { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; flex-shrink: 0; }
+  .contact-links .txt { min-width: 0; overflow-wrap: anywhere; }
+  .contact-links .txt small { display: block; color: rgba(255,255,255,.55); font-size: 12px; font-weight: 500; }
+  .contact-links .arrow { margin-left: auto; opacity: .5; flex-shrink: 0; }
+
+  footer { padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
+  .footer-inner { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 24px; }
+
+  .to-top {
+    position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); z-index: 40;
+    width: 46px; height: 46px; border-radius: 14px; border: none; cursor: pointer; color: #fff;
+    background: var(--grad); background-size: 200% auto; box-shadow: 0 10px 28px var(--glow-a);
+    display: grid; place-items: center; opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .3s, transform .3s;
+  }
+  .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .d1 { transition-delay: .08s; } .d2 { transition-delay: .16s; } .d3 { transition-delay: .24s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+    .code-card { transform: none; }
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#inicio" class="brand"><span class="logo">DC</span>Diego Cerda</a>
+    <nav class="nav-links" id="navLinks" aria-label="Principal">
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#fortalezas">Fortalezas</a>
+      <a href="#experiencia">Experiencia</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Cambiar tema claro u oscuro">
+        <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="inicio">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="blob a"></div><div class="blob b"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow reveal"><span class="pulse"></span>Disponible para nuevos desafíos</span>
+        <h1 class="reveal d1">Hola, soy<br><span class="grad-text">Diego Cerda</span></h1>
+        <p class="role reveal d2">Analista Programador · <span class="typed" id="typed">Oracle APEX &amp; PL/SQL</span><span class="caret"></span></p>
+        <p class="lead reveal d2">Diseño, construyo y optimizo aplicaciones empresariales críticas de punta a punta para los sectores financiero, asegurador y de telecomunicaciones. Además del código, acompaño al equipo con revisión de código, buenas prácticas con Git y despliegues ordenados entre ambientes.</p>
+        <div class="cta reveal d3">
+          <a class="btn btn-primary" href="#proyectos">Ver proyectos
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#contacto">Hablemos</a>
+        </div>
+        <div class="hero-meta reveal d3">
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Santiago, Chile</span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>Titulado Duoc UC</span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Español · Inglés</span>
+        </div>
+      </div>
+
+      <div class="code-wrap reveal d2" aria-hidden="true">
+        <div class="floating-badge two"><span class="ic" style="background:linear-gradient(135deg,#6366f1,#06b6d4)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="9" r="3"/><path d="M6 9v6M18 12c0 3-3 4-9 5"/></svg></span>PR aprobado</div>
+        <div class="code-card">
+          <div class="code-head"><i></i><i></i><i></i><em>pkg_perfil.pkb</em></div>
+<pre><span class="kw">CREATE OR REPLACE PACKAGE BODY</span> <span class="fn">pkg_perfil</span> <span class="kw">AS</span>
+  <span class="kw">FUNCTION</span> <span class="fn">stack</span> <span class="kw">RETURN</span> t_lista <span class="kw">IS</span>
+  <span class="kw">BEGIN</span>
+    <span class="kw">RETURN</span> t_lista(
+      <span class="str">'Oracle APEX'</span>, <span class="str">'PL/SQL'</span>,
+      <span class="str">'SQL Server'</span>, <span class="str">'Python'</span>,
+      <span class="str">'JavaScript'</span>, <span class="str">'Git'</span>
+    );
+  <span class="kw">END</span>;
+
+  <span class="cm">-- Del requerimiento al despliegue</span>
+  <span class="kw">PROCEDURE</span> <span class="fn">entregar</span>(p_req <span class="kw">IN</span> t_req) <span class="kw">IS</span>
+  <span class="kw">BEGIN</span>
+    <span class="fn">analizar</span>(p_req);
+    <span class="fn">construir</span>(p_req);
+    <span class="fn">revisar_codigo</span>(<span class="str">'pull request'</span>);
+    <span class="fn">guiar_equipo</span>;
+    <span class="fn">desplegar</span>(<span class="str">'DEV→QA→UAT→PROD'</span>);
+  <span class="kw">END</span>;
+<span class="kw">END</span> <span class="fn">pkg_perfil</span>;</pre>
+        </div>
+        <div class="floating-badge one"><span class="ic" style="background:linear-gradient(135deg,#22c55e,#16a34a)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>Desplegado en PROD</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Oracle APEX</span><span>PL/SQL</span><span>Oracle Database</span><span>SQL Server</span><span>Git</span><span>GitHub</span><span>JavaScript</span><span>Python</span><span>Django</span><span>Apache Spark</span><span>DataStage</span><span>Shell / CLI</span><span>SCRUM</span><span>Code review</span>
+      <span>Oracle APEX</span><span>PL/SQL</span><span>Oracle Database</span><span>SQL Server</span><span>Git</span><span>GitHub</span><span>JavaScript</span><span>Python</span><span>Django</span><span>Apache Spark</span><span>DataStage</span><span>Shell / CLI</span><span>SCRUM</span><span>Code review</span>
+    </div>
+  </div>
+
+  <!-- SOBRE MÍ -->
+  <section id="sobre-mi">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="kicker">01 / sobre mí</span><h2>Código sólido, <span class="grad-text">equipos que avanzan</span></h2></div>
+      <div class="about-grid">
+        <div class="reveal">
+          <p>Soy desarrollador de software especializado en <strong>Oracle APEX</strong> y <strong>PL/SQL</strong>. Trabajo en el diseño, construcción, mantenimiento y optimización de aplicaciones críticas y bases de datos corporativas, desde el levantamiento de requerimientos hasta el despliegue en producción.</p>
+          <p>Tengo un sólido manejo de <strong>modelado relacional</strong> y consultas complejas, y complemento el trabajo de base de datos con integración web (JavaScript, HTML, CSS, Bootstrap) y desarrollo en Python y Django.</p>
+          <p>Trabajo con <strong>metodologías ágiles</strong> en contacto directo con contrapartes técnicas, acompaño a desarrolladores nuevos y uso flujos de desarrollo asistido por IA para acelerar la entrega sin descuidar la calidad.</p>
+        </div>
+        <div class="stats">
+          <div class="card stat reveal d1"><b class="grad-text">1,9</b><small>años de experiencia</small><span>en consultoría tecnológica</span></div>
+          <div class="card stat reveal d2"><b class="grad-text">3</b><small>sectores</small><span>Financiero, asegurador y telecomunicaciones</span></div>
+          <div class="card stat reveal d2"><b class="grad-text">4</b><small>ambientes</small><span>DEV, QA, UAT y PROD</span></div>
+          <div class="card stat reveal d3"><b class="grad-text">2</b><small>distinciones</small><span>en la titulación como Analista Programador</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORTALEZAS -->
+  <section id="fortalezas" class="alt">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="kicker">02 / fortalezas</span><h2>Más allá del código</h2>
+        <p class="section-sub">Mi base es PL/SQL y Oracle APEX, pero también aporto en la forma en que el equipo trabaja y entrega.</p></div>
+      <div class="strengths">
+        <article class="card strength featured reveal">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>Liderazgo técnico y mentoría</h3>
+          <p>Acompaño a los desarrolladores nuevos del equipo: les explico la base de código, resuelvo dudas técnicas y les enseño los estándares del proyecto para que lleguen antes a ser autónomos.</p>
+        </article>
+        <article class="card strength featured reveal d1">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="9" r="3"/><path d="M6 9v6M18 12c0 3-3 4-9 5"/></svg></div>
+          <h3>Control de versiones y code review</h3>
+          <p>Gestiono repositorios en Git y GitHub: ramas, <em>pull requests</em> y revisión de código para mantener la calidad y la trazabilidad de cada cambio.</p>
+        </article>
+        <article class="card strength featured reveal d2">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-6-6-6M12 19h8"/></svg></div>
+          <h3>Despliegues y gestión de ambientes</h3>
+          <p>Automatizo despliegues diarios con Shell y CLI, y configuro y homologo servidores y flujos en los ambientes DEV, QA, UAT y PROD.</p>
+        </article>
+        <article class="card strength reveal">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <h3>Contraparte técnica con el cliente</h3>
+          <p>Levanto requerimientos funcionales directamente con el cliente y los convierto en soluciones técnicas concretas. Hago de puente entre el negocio y el desarrollo.</p>
+        </article>
+        <article class="card strength reveal d1">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.2L12 16.4 5.7 20.8 8 13.6 2 9.2h7.6z"/></svg></div>
+          <h3>Desarrollo asistido por IA</h3>
+          <p>Integro herramientas de IA, como Claude en VS Code, al flujo de desarrollo para entregar funcionalidades más rápido, sin dejar de lado la revisión ni las buenas prácticas.</p>
+        </article>
+        <article class="card strength reveal d2">
+          <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
+          <h3>Metodologías ágiles</h3>
+          <p>Trabajo con SCRUM: planificación por sprints, entregas incrementales y coordinación constante con el equipo y con las contrapartes.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCIA -->
+  <section id="experiencia">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="kicker">03 / experiencia</span><h2>Experiencia profesional</h2></div>
+      <div class="timeline">
+        <div class="job reveal">
+          <div class="job-top">
+            <div><h3>Consultor de Desarrollo · Oracle APEX &amp; PL/SQL</h3><div class="org">Consultora tecnológica</div></div>
+            <span class="date-pill">Dic 2025 — Actualidad</span>
+          </div>
+          <div class="engagements">
+            <div class="card engagement">
+              <h4>Proyecto en banca <span class="tag">Sector financiero</span></h4>
+              <ul>
+                <li>Desarrollo, mantenimiento y optimización de procedimientos almacenados, <em>packages</em> y consultas complejas en <strong>PL/SQL</strong> y <strong>SQL Server</strong>.</li>
+                <li>Construcción y evolución de aplicativos empresariales críticos sobre <strong>Oracle APEX</strong>, incluida la gestión de despliegues en bases de datos.</li>
+                <li>Levantamiento de requerimientos funcionales y rol de contraparte técnica directamente en las dependencias del cliente.</li>
+              </ul>
+            </div>
+            <div class="card engagement">
+              <h4>Proyecto en telecomunicaciones <span class="tag">Telecom</span></h4>
+              <ul>
+                <li>Desarrollo de lógica de negocio robusta sobre bases de datos <strong>Oracle</strong> mediante <strong>PL/SQL</strong>.</li>
+                <li>Creación y mantenimiento evolutivo de soluciones de punta a punta en <strong>Oracle APEX</strong>.</li>
+              </ul>
+            </div>
+            <div class="card engagement">
+              <h4>Proyecto interno: CRM corporativo <span class="tag">Desarrollo con IA</span></h4>
+              <ul>
+                <li>Desarrollo de punta a punta de un <strong>CRM interno</strong> con flujos de desarrollo asistido por IA (Claude integrado en VS Code).</li>
+                <li>Control de versiones en <strong>GitHub</strong>, revisión de código y acompañamiento técnico a desarrolladores nuevos del equipo.</li>
+                <li>Automatización de despliegues continuos diarios mediante <strong>Shell / CLI</strong>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="job reveal">
+          <div class="job-top">
+            <div><h3>Asistente de Desarrollo TI</h3><div class="org">Consultora tecnológica · Equipo Data &amp; Analytics</div></div>
+            <span class="date-pill">Mar 2025 — Dic 2025</span>
+          </div>
+          <div class="engagements">
+            <div class="card engagement">
+              <h4>Proyecto para aseguradora internacional <span class="tag">Sector asegurador</span></h4>
+              <ul>
+                <li>Migración y mejora de procesos complejos de análisis y gestión de datos con <strong>Python</strong> y <strong>Apache Spark</strong>, trabajando con <strong>DataStage</strong> y <strong>SQL Server</strong>.</li>
+                <li>Configuración, despliegue y homologación de servidores y flujos en ambientes <strong>DEV, QA, UAT y PROD</strong>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section id="proyectos" class="alt">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="kicker">04 / proyectos</span><h2>Proyectos destacados</h2>
+        <p class="section-sub">Una selección de proyectos reales. Por confidencialidad, los clientes se identifican solo por sector.</p></div>
+      <div class="projects">
+        <article class="card project reveal">
+          <div class="project-top">
+            <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+            <span class="project-num">/01</span>
+          </div>
+          <span class="sector">Sector financiero</span>
+          <h3>Aplicativos empresariales críticos en Oracle APEX</h3>
+          <p>Construcción y evolución de aplicaciones internas de uso diario, con lógica de negocio en <em>packages</em> PL/SQL, consultas optimizadas y gestión de despliegues entre ambientes.</p>
+          <div class="chips"><span class="chip">Oracle APEX</span><span class="chip">PL/SQL</span><span class="chip">SQL Server</span><span class="chip">JavaScript</span></div>
+        </article>
+        <article class="card project reveal d1">
+          <div class="project-top">
+            <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <span class="project-num">/02</span>
+          </div>
+          <span class="sector">Proyecto interno</span>
+          <h3>CRM corporativo con desarrollo asistido por IA</h3>
+          <p>Desarrollo de punta a punta de un CRM con Claude en VS Code, flujo de ramas y <em>code review</em> en GitHub, y despliegues automatizados diarios por línea de comandos.</p>
+          <div class="chips"><span class="chip">IA / Claude</span><span class="chip">GitHub</span><span class="chip">Shell / CLI</span><span class="chip">Code review</span></div>
+        </article>
+        <article class="card project reveal">
+          <div class="project-top">
+            <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+            <span class="project-num">/03</span>
+          </div>
+          <span class="sector">Telecomunicaciones</span>
+          <h3>Lógica de negocio sobre Oracle</h3>
+          <p>Diseño e implementación de reglas de negocio en PL/SQL y mantenimiento evolutivo de soluciones APEX de punta a punta.</p>
+          <div class="chips"><span class="chip">Oracle Database</span><span class="chip">PL/SQL</span><span class="chip">Oracle APEX</span></div>
+        </article>
+        <article class="card project reveal d1">
+          <div class="project-top">
+            <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg></div>
+            <span class="project-num">/04</span>
+          </div>
+          <span class="sector">Sector asegurador</span>
+          <h3>Migración de procesos de datos a Python y Spark</h3>
+          <p>Migración y mejora de procesos de análisis y gestión de datos, además de la homologación de servidores y flujos en cuatro ambientes.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">Apache Spark</span><span class="chip">DataStage</span><span class="chip">SQL Server</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- HABILIDADES -->
+  <section id="habilidades">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="kicker">05 / habilidades</span><h2>Habilidades</h2></div>
+      <div class="skills">
+        <div class="card skill-group primary reveal">
+          <h3><span class="icon-tile"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></span>Oracle y bases de datos<span class="fav">Mi fuerte</span></h3>
+          <div class="chips"><span class="chip">PL/SQL</span><span class="chip">Oracle APEX</span><span class="chip">Oracle Database</span><span class="chip">SQL Server</span><span class="chip">Modelado de datos</span><span class="chip">Optimización de consultas</span></div>
+        </div>
+        <div class="card skill-group reveal d1">
+          <h3><span class="icon-tile"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="9" r="3"/><path d="M6 9v6M18 12c0 3-3 4-9 5"/></svg></span>Versionado y DevOps</h3>
+          <div class="chips"><span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Ramas y pull requests</span><span class="chip">Code review</span><span class="chip">Shell / CLI</span><span class="chip">Despliegue continuo</span><span class="chip">DEV · QA · UAT · PROD</span><span class="chip">Claude / VS Code</span></div>
+        </div>
+        <div class="card skill-group reveal">
+          <h3><span class="icon-tile"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></span>Desarrollo web y datos</h3>
+          <div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">Bootstrap</span><span class="chip">Python</span><span class="chip">Django</span><span class="chip">Apache Spark</span><span class="chip">DataStage</span></div>
+        </div>
+        <div class="card skill-group reveal d1">
+          <h3><span class="icon-tile"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Liderazgo y gestión</h3>
+          <div class="chips"><span class="chip">Mentoría técnica</span><span class="chip">Onboarding de desarrolladores</span><span class="chip">Levantamiento de requerimientos</span><span class="chip">Contraparte técnica</span><span class="chip">SCRUM</span><span class="chip">Comunicación con el cliente</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCACIÓN -->
+  <section id="educacion" class="alt">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="kicker">06 / educación</span><h2>Educación e idiomas</h2></div>
+      <div class="edu">
+        <div class="card edu-item reveal">
+          <span class="date-pill" style="align-self:flex-start">2023 — 2025</span>
+          <h3>Analista Programador Computacional</h3>
+          <p>Instituto Profesional Duoc UC · Técnico de Nivel Superior</p>
+          <span class="badge">Titulado con 2 distinciones</span>
+        </div>
+        <div class="card edu-item reveal d1">
+          <span class="date-pill" style="align-self:flex-start">2019 — 2020</span>
+          <h3>Técnico de Nivel Medio en Electrónica</h3>
+          <p>Liceo Industrial Benjamín Franklin</p>
+        </div>
+        <div class="card edu-item reveal d2">
+          <span class="date-pill" style="align-self:flex-start">Idiomas</span>
+          <h3>Español e inglés</h3>
+          <p>Español nativo · Inglés intermedio, con certificación internacional</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="wrap">
+      <div class="contact-box reveal">
+        <div>
+          <span class="kicker">07 / contacto</span>
+          <h2>¿Trabajamos juntos?</h2>
+          <p>Si buscas a alguien para desarrollar o mejorar aplicaciones en Oracle APEX y PL/SQL, o para sumarse a tu equipo de desarrollo, escríbeme. Respondo rápido.</p>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:contacto.diego.hcm@gmail.com">
+            <span class="ic" style="background:linear-gradient(135deg,#ff5f45,#f59e0b)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg></span>
+            <span class="txt"><small>Correo</small>contacto.diego.hcm@gmail.com</span>
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/diego-hernan-cerda-mercado-801a38371" target="_blank" rel="noopener">
+            <span class="ic" style="background:#0a66c2"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></span>
+            <span class="txt"><small>LinkedIn</small>Diego Cerda</span>
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+          <a href="https://wa.me/56931280553?text=Hola%20Diego%2C%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar%20contigo." target="_blank" rel="noopener">
+            <span class="ic" style="background:#25d366"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88z"/></svg></span>
+            <span class="txt"><small>WhatsApp</small>Escríbeme directo</span>
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>© <span id="year"></span> Diego Cerda · Analista Programador</span>  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="Volver arriba">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const root = document.documentElement;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Tema claro / oscuro
+  try { const t = localStorage.getItem('theme'); if (t) root.setAttribute('data-theme', t); } catch (e) {}
+  document.getElementById('themeBtn').addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+
+  // Menú móvil
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  const closeMenu = () => { navLinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); };
+  menuBtn.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(open));
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+  addEventListener('resize', () => { if (innerWidth > 880) closeMenu(); });
+
+  // Barra de progreso, sombra del menú y botón "volver arriba"
+  const nav = document.getElementById('nav'), progress = document.getElementById('progress'), toTop = document.getElementById('toTop');
+  const onScroll = () => {
+    const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+    progress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+    nav.classList.toggle('scrolled', y > 10);
+    toTop.classList.toggle('show', y > 600);
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  toTop.addEventListener('click', () => scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
+
+  // Enlace activo según la sección visible
+  const links = [...navLinks.querySelectorAll('a')];
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
+
+  // Aparición al hacer scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Texto rotativo del rol
+  const roles = ['Oracle APEX & PL/SQL', 'Bases de datos Oracle', 'Git y code review', 'Liderazgo técnico', 'Despliegues DEV → PROD'];
+  const typed = document.getElementById('typed');
+  if (!reduceMotion) {
+    let i = 0, j = roles[0].length, deleting = true;
+    const tick = () => {
+      const word = roles[i];
+      typed.textContent = word.slice(0, j);
+      let delay = deleting ? 35 : 70;
+      if (deleting && j === 0) { deleting = false; i = (i + 1) % roles.length; delay = 300; }
+      else if (!deleting && j === roles[i].length) { deleting = true; delay = 2200; }
+      j += deleting ? -1 : 1;
+      setTimeout(tick, delay);
+    };
+    setTimeout(tick, 2500);
+  }
+</script>
+</body>
+</html>
